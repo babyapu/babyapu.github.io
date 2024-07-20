@@ -121,16 +121,21 @@ function update() {
 }
 
 function placePipes() {
-    if(gameOver){
+    if (gameOver) {
         return;
     }
-    
-    let openingSpace = 160; // 20% smaller than the original 200
+
+    // Randomize the opening space size between 80 and 150 pixels
+    let openingSpace = 80 + Math.random() * 70;
+
+    // Calculate the minimum and maximum Y positions for the opening
     let minOpeningY = boardHeight / 4;
     let maxOpeningY = boardHeight - minOpeningY - openingSpace;
 
+    // Generate a random Y position for the opening
     let randomOpeningY = minOpeningY + Math.random() * (maxOpeningY - minOpeningY);
 
+    // Create the top pipe
     let topPipe = {
         img: topPipeImg,
         x: pipeX,
@@ -138,10 +143,9 @@ function placePipes() {
         width: pipeWidth,
         height: pipeHeight,
         passed: false
-    }
+    };
 
-    pipeArray.push(topPipe);
-
+    // Create the bottom pipe
     let bottomPipe = {
         img: bottomPipeImg,
         x: pipeX,
@@ -149,9 +153,14 @@ function placePipes() {
         width: pipeWidth,
         height: pipeHeight,
         passed: false,
-    }
+    };
+
+    // Add the pipes to the pipe array
+    pipeArray.push(topPipe);
     pipeArray.push(bottomPipe);
 }
+
+
 
 function moveBird(e){
     if (e.code == "Space" || e.code == "ArrowUp" || e.code == "KeyX"){
