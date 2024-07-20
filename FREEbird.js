@@ -120,13 +120,25 @@ function update() {
     }
 }
 
+function calculateOpeningSpace(score) {
+    // Base opening space
+    let baseOpeningSpace = 150;
+
+    // Reduce the opening space by 5 pixels for every 10 points scored
+    let reduction = Math.floor(score / 10) * 5;
+
+    // Ensure the opening space doesn't get too small
+    let minOpeningSpace = 50;
+    return Math.max(baseOpeningSpace - reduction, minOpeningSpace);
+}
+
 function placePipes() {
     if (gameOver) {
         return;
     }
 
-    // Randomize the opening space size between 80 and 150 pixels
-    let openingSpace = 80 + Math.random() * 70;
+    // Calculate the opening space based on the current score
+    let openingSpace = calculateOpeningSpace(score);
 
     // Calculate the minimum and maximum Y positions for the opening
     let minOpeningY = boardHeight / 4;
@@ -159,7 +171,6 @@ function placePipes() {
     pipeArray.push(topPipe);
     pipeArray.push(bottomPipe);
 }
-
 
 
 function moveBird(e){
